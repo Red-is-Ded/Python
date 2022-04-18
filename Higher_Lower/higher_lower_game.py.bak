@@ -1,0 +1,49 @@
+from art import logo
+from game_data import data
+import random 
+
+handle1 = []
+handle2 = []
+
+should_continue = 0
+
+print(logo)
+print("Welcome to the Higher Lower Game! \n")
+print("Guess who has the most twitter followers. \n \n")
+
+# Select random twitter handle, return stats in list.
+def pick_twitter():
+    twitter1 = random.choice(data)
+    twitter1_name = twitter1["name"]
+    twitter1_follower_count = twitter1["follower_count"]
+    twitter1_description = twitter1["description"]
+    twitter1_country = twitter1["country"]
+
+    return [twitter1_name, twitter1_follower_count, twitter1_description, twitter1_country]
+    
+# compare two twitter users scores. ask for user guess on comparison. if correct return 0, if incorrect return 1. 
+def compare_scores():
+    if handle1[2] > handle2[2] and user_guess == "B":
+        print(f"That is correct, {handle1[0]} has more followers than {handle2[0]} :\n{handle2[0]} has {handle2[1]} followers. Lets try the next question \n \n \n")
+        return 0
+    elif handle1[2] < handle2[2] and user_guess == "A":
+        print(f"That is correct, {handle1[0]} has less followers than {handle2[0]} :\n{handle2[0]} has {handle2[1]} followers. Lets try the next question \n \n \n")
+        return 0
+    else:
+        print("I am sorry that is incorrect. You lose.")
+        return 1
+
+while should_continue == 0:
+    handle1 = pick_twitter()
+
+    print(f"The first account is {handle1[0]}, a {handle1[2]} from {handle1[3]}, They have a grand total of {handle1[1]} followers.")
+
+    handle2 = pick_twitter()
+
+    print(f"The second account is {handle2[0]}, a {handle2[2]} from {handle2[3]}. Do you think they have more or less twitter followers?")
+
+    user_guess = input("Press 'A' for more followers or 'B' for less followers. \n")
+
+    should_continue = compare_scores()
+
+    
